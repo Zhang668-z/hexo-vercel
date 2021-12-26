@@ -6,7 +6,7 @@
 - 中文文档：[MapStruct 1.3.0.Final参考指南 (kailing.pub)](http://www.kailing.pub/MapStruct1.3/index.html)
 - 使用场景：
 
-![image-20210620163904556](https://pic-markdown.oss-cn-beijing.aliyuncs.com/Java%E7%AC%94%E8%AE%B0/img/20210620163904.png)
+![image-20210620163904556](https://s2.loli.net/2021/12/26/RIwpNAk3YWB7zK9.png)
 
 ### 2、BeansUtils和MapStruct的对比
 
