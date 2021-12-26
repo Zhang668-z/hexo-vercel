@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1、mapStruct简介 官网：MapStruct – Java bean mappings, the easy way! 中文文档：MapStruct 1.3.0.Final参考指南 (kailing.pub) 使用场景：   2、BeansUtils和MapStruct的对比2.1 相同之处 拷贝简单对象的时候都是深拷贝 拷贝复杂对象的时候都是浅拷贝   复杂对象：类中属性包括对象属性的类为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/07/20/mapStruct%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、mapStruct简介 官网：MapStruct – Java bean mappings, the easy way! 中文文档：MapStruct 1.3.0.Final参考指南 (kailing.pub) 使用场景：   2、BeansUtils和MapStruct的对比2.1 相同之处 拷贝简单对象的时候都是深拷贝 拷贝复杂对象的时候都是浅拷贝   复杂对象：类中属性包括对象属性的类为">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic-markdown.oss-cn-beijing.aliyuncs.com/Java%E7%AC%94%E8%AE%B0/img/20210620163904.png">
+<meta property="article:published_time" content="2021-07-20T12:07:24.000Z">
+<meta property="article:modified_time" content="2021-07-20T12:07:25.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic-markdown.oss-cn-beijing.aliyuncs.com/Java%E7%AC%94%E8%AE%B0/img/20210620163904.png">
+  
+  
+  <title>Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-20 20:07" pubdate>
+        2021年7月20日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      12k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      104 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <h3 id="1、mapStruct简介"><a href="#1、mapStruct简介" class="headerlink" title="1、mapStruct简介"></a>1、mapStruct简介</h3><ul>
+<li>官网：<a target="_blank" rel="noopener" href="https://mapstruct.org/">MapStruct – Java bean mappings, the easy way!</a></li>
+<li>中文文档：<a target="_blank" rel="noopener" href="http://www.kailing.pub/MapStruct1.3/index.html">MapStruct 1.3.0.Final参考指南 (kailing.pub)</a></li>
+<li>使用场景：</li>
+</ul>
+<p><img src="https://pic-markdown.oss-cn-beijing.aliyuncs.com/Java%E7%AC%94%E8%AE%B0/img/20210620163904.png" srcset="/img/loading.gif" lazyload alt="image-20210620163904556"></p>
+<h3 id="2、BeansUtils和MapStruct的对比"><a href="#2、BeansUtils和MapStruct的对比" class="headerlink" title="2、BeansUtils和MapStruct的对比"></a>2、BeansUtils和MapStruct的对比</h3><h4 id="2-1-相同之处"><a href="#2-1-相同之处" class="headerlink" title="2.1 相同之处"></a>2.1 相同之处</h4><ul>
+<li>拷贝简单对象的时候都是深拷贝</li>
+<li>拷贝复杂对象的时候都是浅拷贝</li>
+</ul>
+<blockquote>
+<p>复杂对象：类中属性包括对象属性的类为复杂对象</p>
+</blockquote>
+<blockquote>
+<p>深拷贝：是增加了一个指针并且申请了一个新的内存，使这个增加的指针指向这个新的内存</p>
+<p>浅拷贝：只是增加了一个指针指向已存在的内存地址</p>
+</blockquote>
+<h4 id="2-2-不同之处"><a href="#2-2-不同之处" class="headerlink" title="2.2 不同之处"></a>2.2 不同之处</h4><ul>
+<li>BeanUtils在java虚拟机运行期间通过反射实现，效率低下</li>
+<li>BeanUtils的属性拷贝在判断空值和不同类型的属性时有很多障碍 产生Bug</li>
+<li>MapStruct基于JSR269 API实现，在代码编译期间通过getter/setter来实现 对代码运行效率没有性能上的损耗 </li>
+<li>MapStruct有非常灵活的策略和转化方式，自定义性比较强。</li>
+<li>MapStruct支持不同的source和target基本类型自动转换，包括在超类型上声明的属性</li>
+<li>支持lombok中的model的builder链式调用 应用到ConverterImpl中</li>
+</ul>
+<blockquote>
+<p>JSR269：插入式注解处理API 是用于处理注解（元数据，<a target="_blank" rel="noopener" href="https://www.jcp.org/en/jsr/detail?id=269">JSR175</a>）的一套API。其API位于<code>javax.annotation.processing</code>和<code>javax.lang.model</code>包下。</p>
+<p>插入式注解处理API可以让你在编译期访问注解元数据，处理和自定义你的编译输出，像反射一样访问类、字段、方法和注解等元素，创建新的源文件等等。可用于减少编写配置文件的劳动量，提高代码可读性等等。</p>
+</blockquote>
+<h3 id="3-MapStruct的简单使用"><a href="#3-MapStruct的简单使用" class="headerlink" title="3. MapStruct的简单使用"></a>3. MapStruct的简单使用</h3><h4 id="3-1-依赖"><a href="#3-1-依赖" class="headerlink" title="3.1 依赖"></a>3.1 依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs xml">...<br><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">org.mapstruct.version</span>&gt;</span>1.4.2.Final<span class="hljs-tag">&lt;/<span class="hljs-name">org.mapstruct.version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>...<br><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mapstruct<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mapstruct<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;org.mapstruct.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br>...<br><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">pluginManagement</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.8.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">source</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">source</span>&gt;</span> <span class="hljs-comment">&lt;!-- depending on your project --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">target</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">target</span>&gt;</span> <span class="hljs-comment">&lt;!-- depending on your project --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">annotationProcessorPaths</span>&gt;</span><br>              <span class="hljs-tag">&lt;<span class="hljs-name">path</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mapstruct<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mapstruct-processor<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.4.2.Final<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>              <span class="hljs-tag">&lt;/<span class="hljs-name">path</span>&gt;</span><br>              <span class="hljs-tag">&lt;<span class="hljs-name">path</span>&gt;</span><br>                  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>                  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.18.12<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>              <span class="hljs-tag">&lt;/<span class="hljs-name">path</span>&gt;</span><br>              <span class="hljs-comment">&lt;!-- other annotation processors --&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">annotationProcessorPaths</span>&gt;</span><br>          <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">pluginManagement</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span>    <br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-MapStruct自定义配置"><a href="#4-MapStruct自定义配置" class="headerlink" title="4. MapStruct自定义配置"></a>4. MapStruct自定义配置</h3><h4 id="4-1-定义映射"><a href="#4-1-定义映射" class="headerlink" title="4.1 定义映射"></a>4.1 定义映射</h4><h5 id="4-1-1-基本映射"><a href="#4-1-1-基本映射" class="headerlink" title="4.1.1 基本映射"></a>4.1.1 基本映射</h5><p>属性名不同时 指定source和target进行映射</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-meta">@Mapping(source = &quot;make&quot;, target = &quot;manufacturer&quot;)</span><br>    <span class="hljs-meta">@Mapping(source = &quot;numberOfSeats&quot;, target = &quot;seatCount&quot;)</span><br>    <span class="hljs-function">CarDto <span class="hljs-title">carToCarDto</span><span class="hljs-params">(Car car)</span></span>;<br><br>    <span class="hljs-meta">@Mapping(source = &quot;name&quot;, target = &quot;fullName&quot;)</span><br>    <span class="hljs-function">PersonDto <span class="hljs-title">personToPersonDto</span><span class="hljs-params">(Person person)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-1-2-添加自定义方法"><a href="#4-1-2-添加自定义方法" class="headerlink" title="4.1.2 添加自定义方法"></a>4.1.2 添加自定义方法</h5><p>需要手动实现的特定映射 由MapStruct自动调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-meta">@Mapping(...)</span><br>    ...<br>    <span class="hljs-function">CarDto <span class="hljs-title">carToCarDto</span><span class="hljs-params">(Car car)</span></span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">default</span> PersonDto <span class="hljs-title">personToPersonDto</span><span class="hljs-params">(Person person)</span> </span>&#123;<br>        <span class="hljs-comment">//hand-written mapping logic</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-1-3-多个数据源的映射"><a href="#4-1-3-多个数据源的映射" class="headerlink" title="4.1.3 多个数据源的映射"></a>4.1.3 多个数据源的映射</h5><p>将多个实体组合成一个数据传输对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AddressMapper</span> </span>&#123;<br><br>    <span class="hljs-meta">@Mapping(source = &quot;person.description&quot;, target = &quot;description&quot;)</span><br>    <span class="hljs-meta">@Mapping(source = &quot;address.houseNo&quot;, target = &quot;houseNumber&quot;)</span><br>    <span class="hljs-function">DeliveryAddressDto <span class="hljs-title">personAndAddressToDeliveryAddressDto</span><span class="hljs-params">(Person person, Address address)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-1-4-更新现有的实体"><a href="#4-1-4-更新现有的实体" class="headerlink" title="4.1.4 更新现有的实体"></a>4.1.4 更新现有的实体</h5><p>使用@MappingTarget</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">updateCarFromDto</span><span class="hljs-params">(CarDto carDto, <span class="hljs-meta">@MappingTarget</span> Car car)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-1-5-使用构建器"><a href="#4-1-5-使用构建器" class="headerlink" title="4.1.5 使用构建器"></a>4.1.5 使用构建器</h5><p>可结合lombok的@Builder构建</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PersonMapperImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">PersonMapper</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Person <span class="hljs-title">map</span><span class="hljs-params">(PersonDto dto)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (dto == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>        &#125;<br><br>        Person.Builder builder = Person.builder();<br><br>        builder.name( dto.getName() );<br><br>        <span class="hljs-keyword">return</span> builder.create();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-2-检索映射器"><a href="#4-2-检索映射器" class="headerlink" title="4.2 检索映射器"></a>4.2 检索映射器</h4><h5 id="4-2-1-使用Mappers工厂"><a href="#4-2-1-使用Mappers工厂" class="headerlink" title="4.2.1 使用Mappers工厂"></a>4.2.1 使用Mappers工厂</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">CarMapper INSTANCE = Mappers.getMapper( CarMapper.class );<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-2-2-使用依赖注入"><a href="#4-2-2-使用依赖注入" class="headerlink" title="4.2.2 使用依赖注入"></a>4.2.2 使用依赖注入</h5><p>Spring</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper(componentModel = &quot;spring&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-function">CarDto <span class="hljs-title">carToCarDto</span><span class="hljs-params">(Car car)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">...<br><span class="hljs-meta">@Autowired</span> <br><span class="hljs-keyword">private</span> CarMapper mapper;<br>...<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-3-数据类型转换"><a href="#4-3-数据类型转换" class="headerlink" title="4.3 数据类型转换"></a>4.3 数据类型转换</h4><h5 id="4-3-1隐式类型转换"><a href="#4-3-1隐式类型转换" class="headerlink" title="4.3.1隐式类型转换"></a>4.3.1隐式类型转换</h5><p>对于大多数基本类型或者包装类型之间的互转 MapStruct会自动处理类型转换</p>
+<p>再转换时也可以通过@Mapper中的属性指定格式化</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-meta">@Mapping(source = &quot;price&quot;, numberFormat = &quot;#.00&quot;)</span><br>    <span class="hljs-function">CarDto <span class="hljs-title">carToCarDto</span><span class="hljs-params">(Car car)</span></span>;<br><br>    <span class="hljs-meta">@IterableMapping(numberFormat = &quot;#.00&quot;)</span><br>    <span class="hljs-function">List&lt;String&gt; <span class="hljs-title">prices</span><span class="hljs-params">(List&lt;Integer&gt; prices)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-3-2映射对象引用"><a href="#4-3-2映射对象引用" class="headerlink" title="4.3.2映射对象引用"></a>4.3.2映射对象引用</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-function">CarDto <span class="hljs-title">carToCarDto</span><span class="hljs-params">(Car car)</span></span>;<br><br>    <span class="hljs-function">PersonDto <span class="hljs-title">personToPersonDto</span><span class="hljs-params">(Person person)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-4-映射集合"><a href="#4-4-映射集合" class="headerlink" title="4.4 映射集合"></a>4.4 映射集合</h4><h5 id="4-4-1-Collection类型"><a href="#4-4-1-Collection类型" class="headerlink" title="4.4.1 Collection类型"></a>4.4.1 Collection类型</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-function">Set&lt;String&gt; <span class="hljs-title">integerSetToStringSet</span><span class="hljs-params">(Set&lt;Integer&gt; integers)</span></span>;<br><br>    <span class="hljs-function">List&lt;CarDto&gt; <span class="hljs-title">carsToCarDtos</span><span class="hljs-params">(List&lt;Car&gt; cars)</span></span>;<br><br>    <span class="hljs-function">CarDto <span class="hljs-title">carToCarDto</span><span class="hljs-params">(Car car)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-4-2-Map类型"><a href="#4-4-2-Map类型" class="headerlink" title="4.4.2 Map类型"></a>4.4.2 Map类型</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">SourceTargetMapper</span> </span>&#123;<br><br>    <span class="hljs-meta">@MapMapping(valueDateFormat = &quot;dd.MM.yyyy&quot;)</span><br>    <span class="hljs-function">Map&lt;String, String&gt; <span class="hljs-title">longDateMapToStringStringMap</span><span class="hljs-params">(Map&lt;Long, Date&gt; source)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Impl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;Long, Date&gt; <span class="hljs-title">stringStringMapToLongDateMap</span><span class="hljs-params">(Map&lt;String, String&gt; source)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> ( source == <span class="hljs-keyword">null</span> ) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    Map&lt;Long, Date&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;Long, Date&gt;();<br><br>    <span class="hljs-keyword">for</span> ( Map.Entry&lt;String, String&gt; entry : source.entrySet() ) &#123;<br><br>        Long key = Long.parseLong( entry.getKey() );<br>        Date value;<br>        <span class="hljs-keyword">try</span> &#123;<br>            value = <span class="hljs-keyword">new</span> SimpleDateFormat( <span class="hljs-string">&quot;dd.MM.yyyy&quot;</span> ).parse( entry.getValue() );<br>        &#125;<br>        <span class="hljs-keyword">catch</span>( ParseException e ) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException( e );<br>        &#125;<br><br>        map.put( key, value );<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> map;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-5-映射Stream"><a href="#4-5-映射Stream" class="headerlink" title="4.5 映射Stream"></a>4.5 映射Stream</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-function">Set&lt;String&gt; <span class="hljs-title">integerStreamToStringSet</span><span class="hljs-params">(Stream&lt;Integer&gt; integers)</span></span>;<br><br>    <span class="hljs-function">List&lt;CarDto&gt; <span class="hljs-title">carsToCarDtos</span><span class="hljs-params">(Stream&lt;Car&gt; cars)</span></span>;<br><br>    <span class="hljs-function">CarDto <span class="hljs-title">carToCarDto</span><span class="hljs-params">(Car car)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Impl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Set&lt;String&gt; <span class="hljs-title">integerStreamToStringSet</span><span class="hljs-params">(Stream&lt;Integer&gt; integers)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> ( integers == <span class="hljs-keyword">null</span> ) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> integers.stream().map( integer -&gt; String.valueOf( integer ) )<br>        .collect( Collectors.toCollection( HashSet&lt;String&gt;::<span class="hljs-keyword">new</span> ) );<br>&#125;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;CarDto&gt; <span class="hljs-title">carsToCarDtos</span><span class="hljs-params">(Stream&lt;Car&gt; cars)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> ( cars == <span class="hljs-keyword">null</span> ) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> integers.stream().map( car -&gt; carToCarDto( car ) )<br>        .collect( Collectors.toCollection( ArrayList&lt;CarDto&gt;::<span class="hljs-keyword">new</span> ) );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-6-映射配置重用"><a href="#4-6-映射配置重用" class="headerlink" title="4.6 映射配置重用"></a>4.6 映射配置重用</h4><h5 id="4-6-1-映射配置继承"><a href="#4-6-1-映射配置继承" class="headerlink" title="4.6.1 映射配置继承"></a>4.6.1 映射配置继承</h5><p>@InheritConfiguration</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-meta">@Mapping(target = &quot;numberOfSeats&quot;, source = &quot;seatCount&quot;)</span><br>    <span class="hljs-function">Car <span class="hljs-title">carDtoToCar</span><span class="hljs-params">(CarDto car)</span></span>;<br><br>    <span class="hljs-meta">@InheritConfiguration</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">carDtoIntoCar</span><span class="hljs-params">(CarDto carDto, <span class="hljs-meta">@MappingTarget</span> Car car)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-6-2-逆映射"><a href="#4-6-2-逆映射" class="headerlink" title="4.6.2 逆映射"></a>4.6.2 逆映射</h5><p>@InheritInverseConfiguration</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CarMapper</span> </span>&#123;<br><br>    <span class="hljs-meta">@Mapping(source = &quot;numberOfSeats&quot;, target = &quot;seatCount&quot;)</span><br>    <span class="hljs-function">CarDto <span class="hljs-title">carToDto</span><span class="hljs-params">(Car car)</span></span>;<br><br>    <span class="hljs-meta">@InheritInverseConfiguration</span><br>    <span class="hljs-meta">@Mapping(target = &quot;numberOfSeats&quot;, ignore = true)</span><br>    <span class="hljs-function">Car <span class="hljs-title">carDtoToCar</span><span class="hljs-params">(CarDto carDto)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-7Demo"><a href="#4-7Demo" class="headerlink" title="4.7Demo"></a>4.7Demo</h4><p>Model</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Builder</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> Long id;<br>    <span class="hljs-keyword">private</span> String username;<br>    <span class="hljs-keyword">private</span> String password; <span class="hljs-comment">// 密码</span><br>    <span class="hljs-keyword">private</span> Integer sex;  <span class="hljs-comment">// 性别</span><br>    <span class="hljs-keyword">private</span> LocalDate birthday; <span class="hljs-comment">// 生日</span><br>    <span class="hljs-keyword">private</span> LocalDateTime createTime; <span class="hljs-comment">// 创建时间</span><br>    <span class="hljs-keyword">private</span> String config; <span class="hljs-comment">// 其他扩展信息，以JSON格式存储</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>DTO</p>
+<ul>
+<li>不显示密码；</li>
+<li>将日期转换；</li>
+<li>config要转成对象的list；</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Builder</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserVo</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> Long id;<br>    <span class="hljs-keyword">private</span> String username;<br>    <span class="hljs-keyword">private</span> String password;<br>    <span class="hljs-keyword">private</span> Integer gender;<br>    <span class="hljs-keyword">private</span> LocalDate birthday;<br>    <span class="hljs-keyword">private</span> String createTime;<br>    <span class="hljs-keyword">private</span> List&lt;UserConfig&gt; config;<br>    <span class="hljs-meta">@Data</span><br>    <span class="hljs-meta">@Builder</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserConfig</span> </span>&#123;<br>        <span class="hljs-keyword">private</span> String field1;<br>        <span class="hljs-keyword">private</span> Integer field2;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Converter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UserConverter</span> </span>&#123;<br>    UserConverter INSTANCE = Mappers.getMapper(UserConverter.class);<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">      * sex字段映射到gender字段</span><br><span class="hljs-comment">      * createTime字段格式化</span><br><span class="hljs-comment">      */</span><br>    <span class="hljs-meta">@Mapping(target = &quot;gender&quot;, source = &quot;sex&quot;)</span><br>    <span class="hljs-meta">@Mapping(target = &quot;createTime&quot;, dateFormat = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span><br>    <span class="hljs-function">UserVo <span class="hljs-title">toVo</span><span class="hljs-params">(User var1)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * gender字段映射到sex字段</span><br><span class="hljs-comment">     * createTime字段格式化</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Mapping(target = &quot;sex&quot;, source = &quot;gender&quot;)</span><br>    <span class="hljs-comment">//@InheritInverseConfiguration</span><br>    <span class="hljs-meta">@Mapping(target = &quot;password&quot;, ignore = true)</span><br>    <span class="hljs-meta">@Mapping(target = &quot;createTime&quot;, dateFormat = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span><br>    <span class="hljs-function">User <span class="hljs-title">toModel</span><span class="hljs-params">(UserVo var1)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">      * 集合映射</span><br><span class="hljs-comment">      */</span><br>    <span class="hljs-function">List&lt;UserVo&gt; <span class="hljs-title">toVoList</span><span class="hljs-params">(List&lt;User&gt; userList)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">      * config字段自定义映射</span><br><span class="hljs-comment">      */</span><br>    <span class="hljs-keyword">default</span> List&lt;UserVo.UserConfig&gt; strConfigToListUserConfig(String config) &#123;<br>        <span class="hljs-keyword">return</span> JSON.parseArray(config, UserVo.UserConfig.class);<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">      * UserConfig对象集合自定义集合</span><br><span class="hljs-comment">      */</span><br>    <span class="hljs-function"><span class="hljs-keyword">default</span> String <span class="hljs-title">listUserConfigToStrConfig</span><span class="hljs-params">(List&lt;UserVo.UserConfig&gt; list)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> JSON.toJSONString(list);<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>ConverterImpl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Generated(</span><br><span class="hljs-meta">    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,</span><br><span class="hljs-meta">    date = &quot;2021-07-11T15:07:54+0800&quot;,</span><br><span class="hljs-meta">    comments = &quot;version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_171 (Oracle Corporation)&quot;</span><br><span class="hljs-meta">)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserConverterImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UserConverter</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> UserVo <span class="hljs-title">toVo</span><span class="hljs-params">(User var1)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> ( var1 == <span class="hljs-keyword">null</span> ) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>        &#125;<br><br>        UserVoBuilder userVo = UserVo.builder();<br><br>        userVo.gender( var1.getSex() );<br>        <span class="hljs-keyword">if</span> ( var1.getCreateTime() != <span class="hljs-keyword">null</span> ) &#123;<br>            userVo.createTime( DateTimeFormatter.ofPattern( <span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span> ).format( var1.getCreateTime() ) );<br>        &#125;<br>        userVo.id( var1.getId() );<br>        userVo.username( var1.getUsername() );<br>        userVo.password( var1.getPassword() );<br>        userVo.birthday( var1.getBirthday() );<br>        userVo.config( strConfigToListUserConfig( var1.getConfig() ) );<br><br>        <span class="hljs-keyword">return</span> userVo.build();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">toModel</span><span class="hljs-params">(UserVo var1)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> ( var1 == <span class="hljs-keyword">null</span> ) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>        &#125;<br><br>        UserBuilder user = User.builder();<br><br>        user.sex( var1.getGender() );<br>        <span class="hljs-keyword">if</span> ( var1.getCreateTime() != <span class="hljs-keyword">null</span> ) &#123;<br>            user.createTime( LocalDateTime.parse( var1.getCreateTime(), DateTimeFormatter.ofPattern( <span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span> ) ) );<br>        &#125;<br>        user.id( var1.getId() );<br>        user.username( var1.getUsername() );<br>        user.birthday( var1.getBirthday() );<br>        user.config( listUserConfigToStrConfig( var1.getConfig() ) );<br><br>        <span class="hljs-keyword">return</span> user.build();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;UserVo&gt; <span class="hljs-title">toVoList</span><span class="hljs-params">(List&lt;User&gt; userList)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> ( userList == <span class="hljs-keyword">null</span> ) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>        &#125;<br><br>        List&lt;UserVo&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;UserVo&gt;( userList.size() );<br>        <span class="hljs-keyword">for</span> ( User user : userList ) &#123;<br>            list.add( toVo( user ) );<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>Test</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppTest</span> </span>&#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">toVoTest</span><span class="hljs-params">()</span> </span>&#123;<br>        User user = User.builder()<br>                .id(<span class="hljs-number">1L</span>)<br>                .username(<span class="hljs-string">&quot;zhangsan&quot;</span>)<br>                .sex(<span class="hljs-number">1</span>)<br>                .password(<span class="hljs-string">&quot;abc123&quot;</span>)<br>                .createTime(LocalDateTime.now())<br>                .birthday(LocalDate.of(<span class="hljs-number">1999</span>, <span class="hljs-number">9</span>, <span class="hljs-number">27</span>))<br>                .config(<span class="hljs-string">&quot;[&#123;\&quot;field1\&quot;:\&quot;Test Field1\&quot;,\&quot;field2\&quot;:500&#125;,&#123;\&quot;field1\&quot;:\&quot;Test Field2\&quot;,\&quot;field2\&quot;:1000&#125;]&quot;</span>)<br>                .build();<br>        UserVo userVo = UserConverter.INSTANCE.toVo(user);<br><br>        System.out.println(user);<br>        System.out.println(userVo);<br><br><span class="hljs-comment">//        User(id=1, username=zhangsan, password=abc123, sex=1, birthday=1999-09-27, createTime=2021-07-11T15:09:47.485, config=[&#123;&quot;field1&quot;:&quot;Test Field1&quot;,&quot;field2&quot;:500&#125;,&#123;&quot;field1&quot;:&quot;Test Field2&quot;,&quot;field2&quot;:1000&#125;])</span><br><span class="hljs-comment">//        UserVo(id=1, username=zhangsan, password=abc123, gender=1, birthday=1999-09-27, createTime=2021-07-11 15:09:47, config=[UserVo.UserConfig(field1=Test Field1, field2=500), UserVo.UserConfig(field1=Test Field2, field2=1000)])</span><br><br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">toModelTest</span><span class="hljs-params">()</span> </span>&#123;<br>        ArrayList&lt;UserVo.UserConfig&gt; configs = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        configs.add(UserVo.UserConfig.builder().field1(<span class="hljs-string">&quot;Test Field1&quot;</span>).field2(<span class="hljs-number">500</span>).build());<br>        configs.add(UserVo.UserConfig.builder().field1(<span class="hljs-string">&quot;Test Field2&quot;</span>).field2(<span class="hljs-number">1000</span>).build());<br><br>        UserVo userVo = UserVo.builder()<br>                .id(<span class="hljs-number">1L</span>)<br>                .username(<span class="hljs-string">&quot;zhangsan&quot;</span>)<br>                .gender(<span class="hljs-number">2</span>)<br>                .password(<span class="hljs-string">&quot;abc123&quot;</span>)<br>                .createTime(<span class="hljs-string">&quot;2020-01-18 15:32:54&quot;</span>)<br>                .birthday(LocalDate.of(<span class="hljs-number">1999</span>, <span class="hljs-number">9</span>, <span class="hljs-number">27</span>))<br>                .config(configs)<br>                .build();<br><br>        User user = UserConverter.INSTANCE.toModel(userVo);<br><br>        System.out.println(userVo);<br>        System.out.println(user);<br><br><span class="hljs-comment">//        User(id=1, username=zhangsan, password=null, sex=2, birthday=1999-09-27, createTime=2020-01-18T15:32:54, config=[&#123;&quot;field1&quot;:&quot;Test Field1&quot;,&quot;field2&quot;:500&#125;,&#123;&quot;field1&quot;:&quot;Test Field2&quot;,&quot;field2&quot;:1000&#125;])</span><br><span class="hljs-comment">//        UserVo(id=1, username=zhangsan, password=abc123, gender=2, birthday=1999-09-27, createTime=2020-01-18 15:32:54, config=[UserVo.UserConfig(field1=Test Field1, field2=500), UserVo.UserConfig(field1=Test Field2, field2=1000)])</span><br><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-常用注解总结"><a href="#5-常用注解总结" class="headerlink" title="5. 常用注解总结"></a>5. 常用注解总结</h3><h4 id="Mapper-componentModel-“spring”"><a href="#Mapper-componentModel-“spring”" class="headerlink" title="@Mapper(componentModel = “spring”)"></a>@Mapper(componentModel = “spring”)</h4><p> 该接口作为映射接口，编译时MapStruct处理器的入口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">...<br><span class="hljs-meta">@Autowired</span><br><span class="hljs-keyword">private</span> IConverter converter<br>...<br></code></pre></td></tr></table></figure>
+
+<h4 id="Mappings"><a href="#Mappings" class="headerlink" title="@Mappings"></a>@Mappings</h4><p>一组映射关系，值为一个数组，元素为@Mapping</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mappings</span>&#123;<br>    <span class="hljs-meta">@Mapping(..)</span><br>    ..<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="Mapping"><a href="#Mapping" class="headerlink" title="@Mapping"></a>@Mapping</h4><p>一对映射关系 包含多个属性 支持多数据源进行映射</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapping(source=&quot;&quot;, target=&quot;&quot;)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>source：源属性</p>
+</li>
+<li><p>target：目标属性</p>
+</li>
+<li><p>dateFormat：日期类型与String类型互转（支持Date、LocalDate、LocalDateTime）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapping(target = &quot;createTime&quot;, dateFormat = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span><br></code></pre></td></tr></table></figure></li>
+<li><p>numberFormat：数值类型与String类型之间的转化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapping(target = &quot;price&quot;, numberFormat = &quot;#.0&quot;)</span><br></code></pre></td></tr></table></figure></li>
+<li><p>ignore：忽略某个属性的赋值</p>
+</li>
+<li><p>defaultValue：默认值</p>
+</li>
+</ul>
+<h4 id="MappingTarget"><a href="#MappingTarget" class="headerlink" title="@MappingTarget"></a>@MappingTarget</h4><p>用在方法参数的前面。使用此注解，源对象同时也会作为目标对象，用于更新。</p>
+<h4 id="InheritConfiguration"><a href="#InheritConfiguration" class="headerlink" title="@InheritConfiguration"></a>@InheritConfiguration</h4><p>继承同向映射 解决重复映射</p>
+<h4 id="InheritInverseConfiguration"><a href="#InheritInverseConfiguration" class="headerlink" title="@InheritInverseConfiguration"></a>@InheritInverseConfiguration</h4><p>逆向继承映射 </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/26/hello-world/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/05/WebMagic%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

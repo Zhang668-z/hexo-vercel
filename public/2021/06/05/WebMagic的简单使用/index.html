@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="WebMagic的简单使用WebMagic介绍1.1 WebMagic概览[toc]WebMagic是一个简单灵活的Java爬虫框架。基于WebMagic，你可以快速开发出一个高效、易维护的爬虫。 WebMagic项目代码分为核心和扩展两部分。核心部分(webmagic-core)是一个精简的、模块化的爬虫实现，而扩展部分则包括一些便利的、实用性的功能。WebMagic的架构设计参照了Scrapy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/06/05/WebMagic%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="WebMagic的简单使用WebMagic介绍1.1 WebMagic概览[toc]WebMagic是一个简单灵活的Java爬虫框架。基于WebMagic，你可以快速开发出一个高效、易维护的爬虫。 WebMagic项目代码分为核心和扩展两部分。核心部分(webmagic-core)是一个精简的、模块化的爬虫实现，而扩展部分则包括一些便利的、实用性的功能。WebMagic的架构设计参照了Scrapy">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2021/12/25/HlItCZwQBRUW8Mp.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/25/GFCnrTftYoAyXLq.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/25/cTAbJPukp4tQNdF.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/25/zSxgGuOw4XKakNo.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/25/TFVSsMyHOGDudB8.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/25/M8CObtXd4xJqnNZ.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/25/TRgJ8eDpWZC1E2d.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/25/ajyu5NnGFMlHvJ3.png">
+<meta property="article:published_time" content="2021-06-05T12:47:50.000Z">
+<meta property="article:modified_time" content="2021-12-25T10:05:34.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2021/12/25/HlItCZwQBRUW8Mp.png">
+  
+  
+  <title>Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-05 20:47" pubdate>
+        2021年6月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      47 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <h1 id="WebMagic的简单使用"><a href="#WebMagic的简单使用" class="headerlink" title="WebMagic的简单使用"></a>WebMagic的简单使用</h1><h2 id="WebMagic介绍"><a href="#WebMagic介绍" class="headerlink" title="WebMagic介绍"></a>WebMagic介绍</h2><h3 id="1-1-WebMagic概览"><a href="#1-1-WebMagic概览" class="headerlink" title="1.1 WebMagic概览"></a>1.1 WebMagic概览</h3><p>[toc]WebMagic是一个简单灵活的Java爬虫框架。基于WebMagic，你可以快速开发出一个高效、易维护的爬虫。</p>
+<p>WebMagic项目代码分为核心和扩展两部分。核心部分(webmagic-core)是一个精简的、模块化的爬虫实现，而扩展部分则包括一些便利的、实用性的功能。WebMagic的架构设计参照了Scrapy，目标是尽量的模块化，并体现爬虫的功能特点。</p>
+<p>这部分提供非常简单、灵活的API，在基本不改变开发模式的情况下，编写一个爬虫。</p>
+<p>扩展部分(webmagic-extension)提供一些便捷的功能，例如注解模式编写爬虫等。同时内置了一些常用的组件，便于爬虫开发。</p>
+<h3 id="1-2-特性："><a href="#1-2-特性：" class="headerlink" title="1.2 特性："></a>1.2 特性：</h3><ul>
+<li>简单的API，可快速上手</li>
+<li>模块化的结构，可轻松扩展</li>
+<li>提供多线程和分布式支持</li>
+</ul>
+<h3 id="1-3-总体架构"><a href="#1-3-总体架构" class="headerlink" title="1.3 总体架构"></a>1.3 总体架构</h3><p>WebMagic的结构分为<code>Downloader</code>、<code>PageProcessor</code>、<code>Scheduler</code>、<code>Pipeline</code>四大组件，并由Spider将它们彼此组织起来。这四大组件对应爬虫生命周期中的下载、处理、管理和持久化等功能。WebMagic的设计参考了Scapy，但是实现方式更Java化一些。</p>
+<p>而Spider则将这几个组件组织起来，让它们可以互相交互，流程化的执行，可以认为Spider是一个大的容器，它也是WebMagic逻辑的核心。</p>
+<p>一般情况下我们只需要实现<code>PageProcessor</code>接口，自定义我们的爬虫抽取逻辑即可。</p>
+<h3 id="1-3-1-WebMagic的四个组件"><a href="#1-3-1-WebMagic的四个组件" class="headerlink" title="1.3.1 WebMagic的四个组件"></a>1.3.1 WebMagic的四个组件</h3><h4 id="1-Downloader"><a href="#1-Downloader" class="headerlink" title="1.Downloader"></a>1.Downloader</h4><p>Downloader负责从互联网上下载页面，以便后续处理。WebMagic默认使用了<a target="_blank" rel="noopener" href="http://hc.apache.org/index.html">Apache HttpClient</a>作为下载工具。</p>
+<h4 id="2-PageProcessor"><a href="#2-PageProcessor" class="headerlink" title="2.PageProcessor"></a>2.PageProcessor</h4><p>PageProcessor负责解析页面，抽取有用信息，以及发现新的链接。WebMagic使用<a target="_blank" rel="noopener" href="http://jsoup.org/">Jsoup</a>作为HTML解析工具，并基于其开发了解析XPath的工具<a target="_blank" rel="noopener" href="https://github.com/code4craft/xsoup">Xsoup</a>。</p>
+<p>在这四个组件中，<code>PageProcessor</code>对于每个站点每个页面都不一样，是需要使用者定制的部分。</p>
+<h4 id="3-Scheduler"><a href="#3-Scheduler" class="headerlink" title="3.Scheduler"></a>3.Scheduler</h4><p>Scheduler负责管理待抓取的URL，以及一些去重的工作。WebMagic默认提供了JDK的内存队列来管理URL，并用集合来进行去重。也支持使用Redis进行分布式管理。</p>
+<p>除非项目有一些特殊的分布式需求，否则无需自己定制Scheduler。</p>
+<h4 id="4-Pipeline"><a href="#4-Pipeline" class="headerlink" title="4.Pipeline"></a>4.Pipeline</h4><p>Pipeline负责抽取结果的处理，包括计算、持久化到文件、数据库等。WebMagic默认提供了“输出到控制台”和“保存到文件”两种结果处理方案。</p>
+<p><code>Pipeline</code>定义了结果保存的方式，如果你要保存到指定数据库，则需要编写对应的Pipeline。对于一类需求一般只需编写一个<code>Pipeline</code>。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li>Github地址：<a target="_blank" rel="noopener" href="https://github.com/code4craft/webmagic">https://github.com/code4craft/webmagic</a></li>
+<li>中文文档：<a target="_blank" rel="noopener" href="http://webmagic.io/docs/zh/">http://webmagic.io/docs/zh/</a></li>
+</ul>
+<h2 id="WebMagic的彼岸图网的DEMO"><a href="#WebMagic的彼岸图网的DEMO" class="headerlink" title="WebMagic的彼岸图网的DEMO"></a>WebMagic的彼岸图网的DEMO</h2><h3 id="一、打开爬取的页面进行分析"><a href="#一、打开爬取的页面进行分析" class="headerlink" title="一、打开爬取的页面进行分析"></a>一、打开爬取的页面进行分析</h3><h4 id="1-下载路径分析"><a href="#1-下载路径分析" class="headerlink" title="1.下载路径分析"></a>1.下载路径分析</h4><p>以此网址<a target="_blank" rel="noopener" href="http://pic.netbian.com/">http://pic.netbian.com</a>为默认首页，打开页面如下所示：</p>
+<p><img src="https://s2.loli.net/2021/12/25/HlItCZwQBRUW8Mp.png" srcset="/img/loading.gif" lazyload alt="彼岸图网首页"></p>
+<p>按<code>F12</code>打开如下页面 选中一张图片可以看到如下便签</p>
+<p><img src="https://s2.loli.net/2021/12/25/GFCnrTftYoAyXLq.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们可以看到很鲜明的标签规律  一个<code>&lt;li&gt;标签</code>是一张图片 每个里面包含一个<code>&lt;a&gt;标签</code>和一个<code>&lt;span&gt;标签</code>  <code>&lt;a&gt;标签</code>中的href属性为图片的详情地址后缀，将其拼接在首页的网址后面即可打开当前图片的详情页面</p>
+<p><code>&lt;span&gt;标签</code>中的src属性的为当前图片的缩略图地址 我们暂不考虑 4K图片才是我们要的 :smile: </p>
+<p>此页面没有4k图的下载地址 打开图片的详情页面 按下<code>F12</code> 选中下载原图 查看标签 如下</p>
+<p><img src="https://s2.loli.net/2021/12/25/cTAbJPukp4tQNdF.png" srcset="/img/loading.gif" lazyload></p>
+<p>点击下载原图 可以看到需要登录才可以下载 所以后续编辑代码时需要在代码模拟请求中将<code>Cookie信息添加到请求头</code>中 </p>
+<p>F12选中下载原图后可以看到这个<code>&lt;a&gt;</code>标签 <code>&lt;a href=&quot;javascript:;&quot; data-id=&quot;21617&quot;&gt;下载原图(4000x2357)&lt;/a&gt;</code> 暂时qq登录 进行一元的充值 获取长达7天的下载时间后 :mask:  我们可以看到点击下载原图就可以触发浏览器下载  在href属性中我们并没有看到对应的下载链接 打开<code>network</code>后可以看到</p>
+<p><img src="https://s2.loli.net/2021/12/25/zSxgGuOw4XKakNo.png" srcset="/img/loading.gif" lazyload></p>
+<p>有两条请求记录存在  看请求名字可以推算到 是图片的下载请求 分别是<a target="_blank" rel="noopener" href="http://pic.netbian.com/e/extend/downpic.php?id=21617&amp;t=0.7504811318948537">http://pic.netbian.com/e/extend/downpic.php?id=21617&amp;t=0.7504811318948537</a> 以及<a target="_blank" rel="noopener" href="http://pic.netbian.com/downpic.php?id=21617&amp;classid=66">http://pic.netbian.com/downpic.php?id=21617&amp;classid=66</a></p>
+<p>查看 第一条和第二条的响应头中的<code>Content-Type</code>可以看到</p>
+<p><img src="https://s2.loli.net/2021/12/25/TFVSsMyHOGDudB8.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://s2.loli.net/2021/12/25/M8CObtXd4xJqnNZ.png" srcset="/img/loading.gif" lazyload></p>
+<p>第二个请求的响应头<code>content-Type</code>类型为<code>image/jpg</code> 因此第二条请求为真正的图片下载链接    </p>
+<p>在查看第一条请求的<code>Response</code> 我们可以看到 </p>
+<p><img src="https://s2.loli.net/2021/12/25/TRgJ8eDpWZC1E2d.png" srcset="/img/loading.gif" lazyload></p>
+<p>响应数据是第二条的请求的请求路径  也就是说我们需要请求第一条路径拿到返回的路径信息 再请求真正的图片下载路径  但是经测试发现第二条的请求路径格式固定 只有其中的参数<code>id</code>代表不同的图片 而且其中的第二个参数<code>classid</code> 完全不用传入 仍然可以进行下载。而参数<code>id</code>的值就是详情页的下载原图按钮中的的<code>&lt;a&gt;标签</code>中的<code>data-id属性的值</code> 如下</p>
+<p><img src="https://s2.loli.net/2021/12/25/ajyu5NnGFMlHvJ3.png" srcset="/img/loading.gif" lazyload></p>
+<p>因此我们的最终下载链接即为<a target="_blank" rel="noopener" href="http://pic.netbian.com/downpic.php?id=21617">http://pic.netbian.com/downpic.php?id=21617</a></p>
+<p>我们的只需要通过爬虫获取<code>data-id</code>的值拼接到此路径中即可  <code>一定要模拟登录状态，即加入cookie信息,不然下载下来的照片大小为0 打开为损坏状态</code></p>
+<h4 id="2-翻页分析"><a href="#2-翻页分析" class="headerlink" title="2.翻页分析"></a>2.翻页分析</h4><p>首页为<a target="_blank" rel="noopener" href="http://pic.netbian.com/">http://pic.netbian.com</a></p>
+<p>第二页为<a target="_blank" rel="noopener" href="http://pic.netbian.com/index_2.html">http://pic.netbian.com/index_2.html</a></p>
+<p>第三页为<a target="_blank" rel="noopener" href="http://pic.netbian.com/index_3.html">http://pic.netbian.com/index_3.html</a></p>
+<p>因此翻页的路径变化就是页码的变化 </p>
+<p>因此编写爬虫逻辑的时候需要区分首页和之后的页面 对应不同的路径</p>
+<h3 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h3><h4 id="1-创建枚举类SiteUrls"><a href="#1-创建枚举类SiteUrls" class="headerlink" title="1.创建枚举类SiteUrls"></a>1.创建枚举类<code>SiteUrls</code></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">SiteUrls</span> </span>&#123;<br><br>    SITEURL(<span class="hljs-string">&quot;http://pic.netbian.com&quot;</span>), <span class="hljs-comment">// 首页网址前缀</span><br>    PAGEURLPREFIX(<span class="hljs-string">&quot;http://pic.netbian.com/4kdongman/index_&quot;</span>), <span class="hljs-comment">// 多页网址前缀(第一页、第二页等)</span><br>    DETAILPAGE(<span class="hljs-string">&quot;http://pic.netbian.com/tupian&quot;</span>), <span class="hljs-comment">// 当前图片详情页网址前缀</span><br>    DOWNURL(<span class="hljs-string">&quot;http://pic.netbian.com/downpic.php?id=&quot;</span>); <span class="hljs-comment">// 图片下载地址前缀</span><br><br>    <span class="hljs-keyword">private</span> String url;<br><br>    SiteUrls(String url) &#123;<br>        <span class="hljs-keyword">this</span>.url = url;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getUrl</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.url;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-创建爬虫逻辑抽取类PicProcesso"><a href="#2-创建爬虫逻辑抽取类PicProcesso" class="headerlink" title="2.创建爬虫逻辑抽取类PicProcesso"></a>2.创建爬虫逻辑抽取类<code>PicProcesso</code></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PicProcessor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">PageProcessor</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Site site = Site.me().setRetryTimes(<span class="hljs-number">3</span>).setRetrySleepTime(<span class="hljs-number">1000</span>);<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-comment">// process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(Page page)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (page.getUrl().toString().startsWith(SiteUrls.DETAILPAGE.getUrl())) &#123; <span class="hljs-comment">// 详情页</span><br>            <span class="hljs-comment">// 通过css样式定位到具体所需要的信息标签 获取属性中的信息</span><br>            String picId = page.getHtml().css(<span class="hljs-string">&quot;div.downpic a&quot;</span>, <span class="hljs-string">&quot;data-id&quot;</span>).get();<br>            <span class="hljs-comment">// 调用下载方法 传入下载路径</span><br>            DownloadUtil.downloadPic(SiteUrls.DOWNURL.getUrl() + picId, picId);<br>        &#125; <span class="hljs-keyword">else</span> &#123;  <span class="hljs-comment">// 表示列表页</span><br>            <span class="hljs-comment">// 拿到一个列表页中多个图片的不同图片详情网址列表</span><br>            List&lt;String&gt; hrefs = page.getHtml().css(<span class="hljs-string">&quot;ul.clearfix&gt;li&gt;a&quot;</span>, <span class="hljs-string">&quot;href&quot;</span>).all();<br>            <span class="hljs-keyword">for</span> (String href : hrefs) &#123;<br>                <span class="hljs-comment">// 加入任务队列</span><br>                page.addTargetRequest(href);<br>            &#125;<br>            <span class="hljs-comment">// 获取当前列表url 进行字符串切割 获取当前页码</span><br>            String url = page.getUrl().get();<br>            String s = StringUtils.substringAfter(url,<span class="hljs-string">&quot;_&quot;</span>);<br>            String i = StringUtils.substringBefore(s, <span class="hljs-string">&quot;.&quot;</span>);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;&quot;</span>.equals(i)) &#123;<br>                <span class="hljs-comment">// 为空表示当前页为首页 进行第二页跳转</span><br>                i = <span class="hljs-string">&quot;2&quot;</span>;<br>            &#125;<span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 页码加1</span><br>                i = (Integer.parseInt(i)+<span class="hljs-number">1</span>)+<span class="hljs-string">&quot;&quot;</span>;<br>            &#125;<br>            <span class="hljs-comment">// 将下一页列表页加入到任务队列</span><br>            page.addTargetRequest(SiteUrls.PAGEURLPREFIX.getUrl() + i + <span class="hljs-string">&quot;.html&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Site <span class="hljs-title">getSite</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> site;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-创建图片下载工具类DownloadUtil"><a href="#3-创建图片下载工具类DownloadUtil" class="headerlink" title="3.创建图片下载工具类DownloadUtil"></a>3.创建图片下载工具类<code>DownloadUtil</code></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DownloadUtil</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">downloadPic</span><span class="hljs-params">(String url, String picId)</span> </span>&#123;<br>            FileOutputStream stream = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            RestTemplate template = <span class="hljs-keyword">new</span> RestTemplate();<br>            <span class="hljs-comment">// 设置请求头信息 cookie和referer</span><br>            HttpHeaders headers = <span class="hljs-keyword">new</span> HttpHeaders();<br>            headers.add(<span class="hljs-string">&quot;Cookie&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br>            headers.add(<span class="hljs-string">&quot;User-Agent&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br>            headers.add(<span class="hljs-string">&quot;Referer&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br>            HttpEntity&lt;String&gt; httpEntity = <span class="hljs-keyword">new</span> HttpEntity&lt;String&gt;(<span class="hljs-keyword">null</span>, headers);<br>            ResponseEntity&lt;<span class="hljs-keyword">byte</span>[]&gt; entity = template.exchange(url, HttpMethod.GET, httpEntity, <span class="hljs-keyword">byte</span>[].class);<br>            <span class="hljs-comment">// 获取图片信息</span><br>            <span class="hljs-keyword">byte</span>[] picData = entity.getBody();<br>            <span class="hljs-comment">// 设置图片下载路径</span><br>            stream = <span class="hljs-keyword">new</span> FileOutputStream(<span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;C:\\Users\\Dell\\Desktop\\图片\\&quot;</span>+picId+<span class="hljs-string">&quot;.jpg&quot;</span>));<br>            <span class="hljs-comment">// 信息写入文件</span><br>            stream.write(picData);<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>                System.out.println(<span class="hljs-string">&quot;图片下载失败&quot;</span>);<br>            &#125;<span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                stream.close();<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br><br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>下载类的9、10、11空的信息请自行填写，如有帮助或者需要超级会员无限下载的账号信息请联系我</code></p>
+<h4 id="4-代码启动入口类Run"><a href="#4-代码启动入口类Run" class="headerlink" title="4.代码启动入口类Run"></a>4.代码启动入口类<code>Run</code></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Run</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		<span class="hljs-comment">// 通过抽取逻辑对象创建自定义爬虫对象 添加首页网址以及设置爬取的线程数量 默认5个  </span><br>        Spider.create(<span class="hljs-keyword">new</span> PicProcessor()).addUrl(SiteUrls.SITEURL.getUrl())<br>                .thread(<span class="hljs-number">5</span>).run();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>此文章仅供学习参考，如有问题，欢迎下方评论谢谢！！！</code></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/20/mapStruct%E7%AE%80%E4%BB%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
