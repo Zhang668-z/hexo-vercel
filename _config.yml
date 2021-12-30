@@ -98,7 +98,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 
-theme: fluid  # 指定主题
+theme: butterfly  # 指定主题
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
